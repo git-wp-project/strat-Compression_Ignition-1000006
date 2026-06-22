@@ -1,0 +1,18 @@
+{
+  "strategy_id": "Compression_Ignition",
+  "magic": 1000006,
+  "symbol": "",
+  "timeframe": "",
+  "docs_url": "https://ldcstc-gif.github.io/strat-Compression_Ignition-1000006/",
+  "params": {
+    "FractalPeriod": 5,
+    "VolumeSMAPeriod": 20,
+    "VolumeMultiplier": 1.8,
+    "ATRPeriod": 14,
+    "ATRSLMultiplier": 1.5,
+    "ATRTPMultiplier": 3.0,
+    "TrendMAPeriod": 200,
+    "RiskPercent": 1.0,
+    "MaxDailyTrades": 3
+  }
+}

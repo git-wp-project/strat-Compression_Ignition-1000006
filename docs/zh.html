@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>压缩点火协议 | 专业另类交易框架</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', 'Inter', system_ui, -apple-system, sans-serif;
+        }
+        
+        .section-header {
+            font-size: 2.1rem;
+            line-height: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .trading-card {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .trading-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .metric-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .nav-active {
+            color: #1E40AF;
+            font-weight: 600;
+        }
+
+        .indicator-pill {
+            background: linear-gradient(90deg, #DBEAFE, #EFF6FF);
+            color: #1E40AF;
+        }
+        
+        .chinese-title {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-blue-900 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-white text-2xl"></i>
+                </div>
+                <div>
+                    <span class="font-semibold text-2xl tracking-tighter">压缩点火</span>
+                    <span class="text-blue-700 text-sm font-medium tracking-[2px] block -mt-1">协议</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a href="#overview" class="hover:text-blue-700 transition-colors">概览</a>
+                <a href="#logic" class="hover:text-blue-700 transition-colors">核心逻辑</a>
+                <a href="#parameters" class="hover:text-blue-700 transition-colors">参数设置</a>
+                <a href="#flow" class="hover:text-blue-700 transition-colors">执行流程</a>
+                <a href="#risk" class="hover:text-blue-700 transition-colors">风险提示</a>
+            </div>
+            
+            <div class="flex items-center gap-x-3">
+                <div class="px-4 py-1.5 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full flex items-center gap-x-1.5">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>另类框架 • 2026</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="max-w-screen-xl mx-auto px-8 pt-16 pb-12">
+        <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-6">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>精选自TradingView • 另类交易体系</span>
+            </div>
+            
+            <h1 class="section-header text-slate-900 chinese-title">压缩点火协议</h1>
+            <p class="mt-4 text-2xl text-slate-600 font-light">一种非常规的波动率收缩 + 动能点火交易框架，专为动态市场环境设计。</p>
+            
+            <div class="mt-8 flex items-center gap-x-4">
+                <a href="#logic" 
+                   class="inline-flex items-center justify-center px-8 py-3.5 bg-blue-900 hover:bg-blue-800 transition-all text-white font-semibold rounded-3xl text-sm tracking-wide shadow-lg shadow-blue-900/30">
+                    探索框架详情
+                </a>
+                <a href="#parameters" 
+                   class="inline-flex items-center justify-center px-6 py-3.5 border border-slate-300 hover:bg-white transition-all text-slate-700 font-medium rounded-3xl text-sm">
+                    查看参数
+                </a>
+            </div>
+            
+            <div class="mt-6 flex items-center gap-x-6 text-sm text-slate-500">
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-clock text-emerald-500"></i>
+                    <span>推荐时间框架：H1</span>
+                </div>
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-globe text-emerald-500"></i>
+                    <span>适用于外汇 • 指数 • 大宗商品</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <div id="overview" class="max-w-screen-xl mx-auto px-8 py-12 border-t border-slate-200">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-blue-700 mb-3">为何此框架与众不同</div>
+                <h2 class="section-header text-slate-900 chinese-title">超越传统均线交叉策略</h2>
+                <div class="mt-6 text-[15px] text-slate-600 leading-relaxed space-y-4">
+                    <p>大多数零售交易方法依赖滞后指标或简单的趋势跟随规则，在区间震荡或低波动率环境中表现不佳。<strong>压缩点火协议</strong>采用另类思路，专门针对<strong>波动率收缩阶段</strong>（压缩期），随后捕捉高概率的动能点火突破。</p>
+                    
+                    <p>该体系灵感来源于2026年在TradingView上流行的机构级概念，包括波动率门控策略和流动性驱动突破，但以清晰、规则化、完全可执行的方式实现，适合在MT4/MT5平台部署。</p>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5">
+                <div class="bg-white border border-slate-200 rounded-3xl p-7 trading-card">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <div class="text-xs uppercase tracking-widest text-slate-500">核心差异化优势</div>
+                            <div class="font-semibold text-lg">波动率优先逻辑</div>
+                        </div>
+                        <i class="fa-solid fa-compress-arrows-alt text-4xl text-blue-900/70"></i>
+                    </div>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> <span>等待真正的压缩，而非始终持仓</span></li>
+                        <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> <span>多重过滤器 confluence（波动率 + 动能 + 趋势强度）</span></li>
+                        <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> <span>基于真实账户风险的动态仓位管理</span></li>
+                        <li class="flex gap-x-3"><i class="fa-solid fa-check text-emerald-500 mt-1"></i> <span>清晰、不重绘的已完成K线信号</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Logic -->
+    <div id="logic" class="bg-white border-y border-slate-200 py-14">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="max-w-2xl mb-10">
+                <div class="text-blue-700 text-xs font-bold tracking-[2.5px] mb-2">信号生成机制</div>
+                <h2 class="section-header chinese-title">核心交易逻辑</h2>
+                <p class="mt-3 text-slate-600">精确、规则化的条件，用于识别高概率参与机会。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Long -->
+                <div class="trading-card bg-white border border-slate-200 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-3 mb-6">
+                        <div class="px-4 py-1 bg-emerald-100 text-emerald-700 rounded-2xl text-xs font-bold flex items-center gap-x-2 w-fit">
+                            <i class="fa-solid fa-arrow-trend-up"></i> 
+                            <span>做多 / 看涨参与</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-5 text-sm">
+                        <div>
+                            <div class="font-semibold text-emerald-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-compress"></i> <span>1. 波动率压缩</span></div>
+                            <p class="text-slate-600 pl-6">布林带宽度达到历史低位（当前宽度 &lt; 20根K线平均宽度的80%）。</p>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-emerald-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-chart-line"></i> <span>2. 突破触发</span></div>
+                            <p class="text-slate-600 pl-6">价格在信号K线收盘于布林带上轨之上。</p>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-emerald-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-tachometer-alt"></i> <span>3. 动能确认</span></div>
+                            <p class="text-slate-600 pl-6">RSI(14) &gt; 50 且 ADX(14) &gt; 25 并呈上升趋势。</p>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-emerald-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-directions"></i> <span>4. 趋势方向过滤</span></div>
+                            <p class="text-slate-600 pl-6">+DI &gt; -DI，确认看涨趋势强度。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Short -->
+                <div class="trading-card bg-white border border-slate-200 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-3 mb-6">
+                        <div class="px-4 py-1 bg-rose-100 text-rose-700 rounded-2xl text-xs font-bold flex items-center gap-x-2 w-fit">
+                            <i class="fa-solid fa-arrow-trend-down"></i> 
+                            <span>做空 / 看跌参与</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-5 text-sm">
+                        <div>
+                            <div class="font-semibold text-rose-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-compress"></i> <span>1. 波动率压缩</span></div>
+                            <p class="text-slate-600 pl-6">与做多相同的压缩条件。</p>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-rose-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-chart-line"></i> <span>2. 突破触发</span></div>
+                            <p class="text-slate-600 pl-6">价格收盘于布林带下轨之下。</p>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-rose-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-tachometer-alt"></i> <span>3. 动能确认</span></div>
+                            <p class="text-slate-600 pl-6">RSI(14) &lt; 50 且 ADX(14) &gt; 25 并呈上升趋势。</p>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-rose-700 mb-1 flex items-center gap-x-2"><i class="fa-solid fa-directions"></i> <span>4. 趋势方向过滤</span></div>
+                            <p class="text-slate-600 pl-6">-DI &gt; +DI，确认看跌趋势强度。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stop Loss & Take Profit -->
+            <div class="mt-8 grid md:grid-cols-3 gap-6">
+                <div class="bg-slate-900 text-white rounded-3xl p-7">
+                    <div class="text-xs tracking-widest text-slate-400 mb-2">风险管理</div>
+                    <div class="text-2xl font-semibold">止损位置</div>
+                    <div class="mt-4 text-emerald-400 text-xl font-mono">入场价 ± 1.5 × ATR(14)</div>
+                    <p class="mt-3 text-sm text-slate-400">根据波动率动态调整止损距离，避免在噪音市场中过早出局。</p>
+                </div>
+                <div class="bg-slate-900 text-white rounded-3xl p-7">
+                    <div class="text-xs tracking-widest text-slate-400 mb-2">收益目标</div>
+                    <div class="text-2xl font-semibold">止盈目标</div>
+                    <div class="mt-4 text-emerald-400 text-xl font-mono">入场价 ± 3.0 × ATR(14)</div>
+                    <p class="mt-3 text-sm text-slate-400">目标风险回报比约为 1:2，捕捉点火后的延伸行情。</p>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-3xl p-7">
+                    <div class="text-xs tracking-widest text-slate-500 mb-2">仓位管理</div>
+                    <div class="text-2xl font-semibold text-slate-900">动态风险控制</div>
+                    <div class="mt-1 text-3xl font-semibold text-blue-900">1% <span class="text-base font-normal text-slate-500">每笔参与</span></div>
+                    <p class="mt-4 text-sm text-slate-600">手数自动计算，使止损时的最大亏损等于当前账户余额的1%。专业的资金保护规则。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parameters -->
+    <div id="parameters" class="max-w-screen-xl mx-auto px-8 py-14">
+        <div class="mb-8">
+            <div class="text-blue-700 text-xs font-bold tracking-[2.5px] mb-2">完全可定制</div>
+            <h2 class="section-header chinese-title">策略参数设置</h2>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-sm">
+                <thead>
+                    <tr class="bg-slate-100 text-left">
+                        <th class="py-4 px-6 font-semibold rounded-tl-2xl">参数名称</th>
+                        <th class="py-4 px-6 font-semibold">默认值</th>
+                        <th class="py-4 px-6 font-semibold">说明</th>
+                        <th class="py-4 px-6 font-semibold rounded-tr-2xl">影响级别</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 text-slate-600">
+                    <tr>
+                        <td class="py-4 px-6 font-medium">布林带周期</td>
+                        <td class="py-4 px-6 font-mono">20</td>
+                        <td class="py-4 px-6">用于检测波动率收缩的长度</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">核心</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">布林带标准差</td>
+                        <td class="py-4 px-6 font-mono">2.0</td>
+                        <td class="py-4 px-6">布林带的标准差倍数</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">核心</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">RSI周期 / 过滤阈值</td>
+                        <td class="py-4 px-6 font-mono">14 / 50</td>
+                        <td class="py-4 px-6">动能过滤器，确认方向偏好</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">过滤器</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">ADX周期 / 阈值</td>
+                        <td class="py-4 px-6 font-mono">14 / 25</td>
+                        <td class="py-4 px-6">趋势强度要求（必须上升）</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">过滤器</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">ATR周期 / 止损倍数</td>
+                        <td class="py-4 px-6 font-mono">14 / 1.5</td>
+                        <td class="py-4 px-6">基于波动率的止损距离</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">风险控制</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">ATR止盈倍数</td>
+                        <td class="py-4 px-6 font-mono">3.0</td>
+                        <td class="py-4 px-6">收益目标（约1:2风险回报比）</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">收益</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">压缩回看周期 / 系数</td>
+                        <td class="py-4 px-6 font-mono">20 / 0.80</td>
+                        <td class="py-4 px-6">检测真正压缩的周期与阈值</td>
+                        <td class="py-4 px-6"><span class="indicator-pill px-3 py-1 rounded-full text-xs">核心</span></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium">每笔风险比例</td>
+                        <td class="py-4 px-6 font-mono">1.0%</td>
+                        <td class="py-4 px-6">单笔参与的最大账户风险比例</td>
+                        <td class="py-4 px-6"><span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs">资金保护</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">所有参数均可在MT4/MT5智能交易系统的输入设置中完全调整，以适应不同品种和市场环境。</p>
+    </div>
+
+    <!-- Signal & Flow -->
+    <div id="flow" class="max-w-screen-xl mx-auto px-8 pb-16">
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Signal Logic -->
+            <div>
+                <div class="mb-5 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold tracking-[2px] text-blue-700">可视化参考</span>
+                        <h3 class="text-2xl font-semibold tracking-tight chinese-title">信号判断逻辑</h3>
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+                    <img src="imagine_images/rGcZF.jpg" alt="压缩点火信号逻辑图" class="w-full">
+                </div>
+                <p class="text-xs text-center text-slate-500 mt-3">清晰展示有效信号所需的四步 confluence 可视化图示。</p>
+            </div>
+            
+            <!-- Execution Flow -->
+            <div>
+                <div class="mb-5 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold tracking-[2px] text-blue-700">操作工作流</span>
+                        <h3 class="text-2xl font-semibold tracking-tight chinese-title">执行顺序</h3>
+                    </div>
+                </div>
+                <div class="border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+                    <img src="imagine_images/VsP9w.jpg" alt="执行流程图" class="w-full">
+                </div>
+                <p class="text-xs text-center text-slate-500 mt-3">从检测到交易后复盘的简洁六步流程，强调纪律与可重复性。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Risk Disclosure -->
+    <div id="risk" class="bg-slate-900 text-slate-300 py-14">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <i class="fa-solid fa-shield-halved text-4xl text-amber-400 mb-4"></i>
+                <h2 class="text-white text-3xl font-semibold tracking-tight mb-4 chinese-title">重要风险提示</h2>
+                <div class="text-sm leading-relaxed space-y-4 text-slate-400">
+                    <p>金融工具交易涉及重大亏损风险，并非适合所有投资者。过往表现并不代表未来结果。压缩点火协议仅作为教育和信息用途提供的技术框架。</p>
+                    
+                    <p>使用杠杆可能导致损失超过初始投资。请始终使用您能承受损失的资金进行交易。如有需要，强烈建议您充分理解相关风险并寻求独立财务建议。</p>
+                    
+                    <p class="text-amber-400 font-medium">本材料不构成投资建议。开发者及发布者对因使用本策略或相关代码而产生的任何损失不承担任何责任。</p>
+                </div>
+                
+                <div class="mt-8 text-xs border-t border-white/10 pt-6 text-slate-500">
+                    © 2026 专业量化交易策略框架 • 适用于 MT4 和 MT5 平台 • 保留所有权利
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
